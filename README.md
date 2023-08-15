@@ -1,1 +1,1 @@
-# HotelMangement
+# Hotel Mangement
