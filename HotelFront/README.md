@@ -22,7 +22,7 @@
 1. Clone the repository:
 
     ```bash
-    git clone [https://github.com/your-username/das-hotelier.git](https://github.com/ikhlas1936/HotelMangement)
+    git clone https://github.com/ikhlas1936/HotelMangement
     cd das-hotelier
     ```
 
