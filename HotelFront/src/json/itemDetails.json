@@ -1,0 +1,151 @@
+{
+  "_id": "asd1293uasdads1",
+  "name": "Water Seven",
+  "type": "Hotel",
+  "imageUrls": [
+    {
+      "_id": "asd1293uasdads1",
+      "url": "/images/img-featured-1.png"
+    },
+    {
+      "_id": "asd1293uasdads1",
+      "url": "/images/img-featured-2.png"
+    },
+    {
+      "_id": "asd1293uasdads1",
+      "url": "/images/img-featured-3.png"
+    }
+  ],
+  "country": "Indonesia",
+  "city": "Maluku",
+  "price": "280",
+  "unit": "night",
+  "isPopular": true,
+  "hasBackyard": true,
+  "description": "<p>Water Seven is a luxurious 5-star hotel that promises an <br>unforgettable stay in the heart of the bustling city. With its <br>elegant and modern design, the hotel offers unparalleled <br>comfort and luxury, complete with top-notch facilities <br>such as a spacious swimming pool, modern fitness center<br>, delicious restaurants, and a rejuvenating spa. </p><p>Each room is thoughtfully designed with modern amenities <br>like flat-screen TVs, free Wi-Fi, and private bathrooms with <br>complete bath essentials.</p>",
+  "features": [
+    {
+      "_id": "asd1293uasdads1",
+      "qty": "6",
+      "name": "bedroom",
+      "imageUrl": "/images/icons/ic_bedroom.svg"
+    },
+    {
+      "_id": "asd1293uasdads1",
+      "qty": "1",
+      "name": "living room",
+      "imageUrl": "/images/icons/ic_livingroom.svg"
+    },
+    {
+      "_id": "asd1293uasdads1",
+      "qty": "3",
+      "name": "bath room",
+      "imageUrl": "/images/icons/ic_bathroom.svg"
+    },
+    {
+      "_id": "asd1293uasdads1",
+      "qty": "1",
+      "name": "dining room",
+      "imageUrl": "/images/icons/ic_diningroom.svg"
+    },
+    {
+      "_id": "asd1293uasdads1",
+      "qty": "10",
+      "name": "mbp/s",
+      "imageUrl": "/images/icons/ic_wifi.svg"
+    },
+    {
+      "_id": "asd1293uasdads1",
+      "qty": "7",
+      "name": "units ready",
+      "imageUrl": "/images/icons/ic_ac.svg"
+    },
+    {
+      "_id": "asd1293uasdads1",
+      "qty": "2",
+      "name": "refrigerator",
+      "imageUrl": "/images/icons/ic_refri.svg"
+    },
+    {
+      "_id": "asd1293uasdads1",
+      "qty": "4",
+      "name": "television",
+      "imageUrl": "/images/icons/ic_tv.svg"
+    }
+  ],
+  "activities": [
+    {
+      "_id": "asd1293uasdads1",
+      "name": "Diving",
+      "type": "Beach",
+      "imageUrl": "/images/categoryItem1.png"
+    },
+    {
+      "_id": "asd1293uasdads1",
+      "name": "Snorkling",
+      "type": "Beach",
+      "imageUrl": "/images/categoryItem2.png"
+    },
+    {
+      "_id": "asd1293uasdads1",
+      "name": "Barbeque",
+      "type": "Pool",
+      "imageUrl": "/images/categoryItem3.png"
+    },
+    {
+      "_id": "asd1293uasdads1",
+      "name": "Beach Club",
+      "type": "Club",
+      "imageUrl": "/images/categoryItem4.png"
+    }
+  ],
+  "categories": [
+    {
+      "_id": "asd1293uasdads1",
+      "name": "House with beauty backyard",
+      "items": [
+        {
+          "_id": "asd1293uasdads1",
+          "name": "Batuwara",
+          "imageUrl": "/images/image-category-1.jpg",
+          "country": "Batu",
+          "city": "Indonesia",
+          "isPopular": true
+        },
+        {
+          "_id": "asd1293uasdads1",
+          "name": "Vins Field",
+          "imageUrl": "/images/image-category-2.jpg",
+          "country": "Bali",
+          "city": "Indonesia",
+          "isPopular": false
+        },
+        {
+          "_id": "asd1293uasdads1",
+          "name": "Dirduras",
+          "imageUrl": "/images/image-category-3.jpg",
+          "country": "Surabaya",
+          "city": "Indonesia",
+          "isPopular": false
+        },
+        {
+          "_id": "asd1293uasdads1",
+          "name": "Windland",
+          "imageUrl": "/images/image-category-4.jpg",
+          "country": "NTT",
+          "city": "Indonesia",
+          "isPopular": false
+        }
+      ]
+    }
+  ],
+  "testimonial": {
+    "_id": "asd1293uasdads1",
+    "imageUrl": "/images/testimonial-waterseven.png",
+    "name": "Happy Family",
+    "rate": 4.75,
+    "content": "What a great experience to reserve my weekend on TrivelTribe, i should book it again and again for the weekend, thank you!",
+    "familyName": "Jerome",
+    "familyOccupation": "Designer"
+  }
+}
