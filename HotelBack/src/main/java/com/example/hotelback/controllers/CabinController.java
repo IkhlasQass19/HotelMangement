@@ -1,9 +1,9 @@
 package com.example.hotelback.controllers;
-
 import com.example.hotelback.Entities.Cabin;
 import com.example.hotelback.repositories.CabinRepository;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -31,11 +31,13 @@ public class CabinController {
     }
 
     @PostMapping("/add")
+    @PreAuthorize("hasAuthority('admin:create')")
     public Cabin createCabin(@RequestBody Cabin cabin) {
         return cabinRepository.save(cabin);
     }
 
     @PutMapping("updatecabin/{id}")
+    @PreAuthorize("hasAuthority('admin:update')")
     public Cabin updateCabin(@PathVariable int id, @RequestBody Cabin updatedCabin) {
         Cabin cabin = cabinRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Cabin not found with id: " + id));
@@ -50,6 +52,7 @@ public class CabinController {
     }
 
     @DeleteMapping("delete/{id}")
+    @PreAuthorize("hasAuthority('admin:delete')")
     public void deleteCabin(@PathVariable int id) {
         cabinRepository.deleteById(id);
     }
