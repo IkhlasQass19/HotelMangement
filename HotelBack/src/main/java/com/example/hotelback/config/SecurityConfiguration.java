@@ -53,6 +53,7 @@ public class SecurityConfiguration {
                         "/webjars/**",
                         "/swagger-ui.html",
                         "/cabins/open/**"
+
                 )
                 .permitAll()
 

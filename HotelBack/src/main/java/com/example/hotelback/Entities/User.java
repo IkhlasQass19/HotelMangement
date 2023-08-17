@@ -46,6 +46,10 @@ public class User implements UserDetails {
     private List<Token> tokens;
 
     @JsonIgnore
+    @OneToMany(mappedBy = "id_reservation")
+    private List<Reservation> reservations ;
+
+    @JsonIgnore
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return role.getAuthorities();
