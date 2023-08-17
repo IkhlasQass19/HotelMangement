@@ -12,7 +12,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 @SpringBootApplication
 @EnableJpaRepositories("com.*")
 @ComponentScan(basePackages = { "com.*" })
-@EntityScan("com.*")
+@EntityScan("com.example.hotelback.*")
 @ComponentScan(basePackages = "com.example.hotelback") // Add your package here
 
 public class HotelBackApplication {
