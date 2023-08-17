@@ -21,4 +21,7 @@ public class Cabin {
     private String image;
     private String price;
     private String descreption;
+
+    @OneToOne(mappedBy = "cabin")
+    private Reservation reservation;
 }
