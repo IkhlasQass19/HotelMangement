@@ -1,11 +1,14 @@
 
 package com.example.hotelback.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
 import jakarta.persistence.*;
 import lombok.*;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,7 +24,8 @@ public class Cabin {
     private String image;
     private String price;
     private String descreption;
+    @JsonIgnore
+    @OneToMany(mappedBy = "cabin")
+    private List<Reservation> reservations;
 
-    @OneToOne(mappedBy = "cabin")
-    private Reservation reservation;
 }
