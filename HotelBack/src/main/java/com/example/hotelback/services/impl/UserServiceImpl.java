@@ -88,8 +88,7 @@ public class UserServiceImpl implements UserService {
     public class ConversionService {
         public static User convertUserDtoToUser(UserDto userDto) {
             User user = new User();
-            user.setIdUser(userDto.getIdUser()); // Assurez-vous d'avoir les setters appropriés dans la classe User
-            // Copiez les autres attributs nécessaires depuis userDto vers user
+            user.setIdUser(userDto.getIdUser());
             return user;
         }
     }
