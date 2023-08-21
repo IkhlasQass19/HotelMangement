@@ -1,10 +1,12 @@
 package com.example.hotelback.services;
 
+import com.example.hotelback.Entities.Etat;
 import com.example.hotelback.Entities.Reservation;
 import com.example.hotelback.repositories.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -39,6 +41,51 @@ public class ReservationService {
         } else {
             return false;
         }
+    }
+
+
+
+
+
+
+    // methode for find Overlapping Reservations
+    public List<Reservation> findOverlappingReservations(Reservation reservation) {
+        List<Reservation> overlappingReservations = new ArrayList<>();
+// etat accept and refuse
+        // We retrieve all reservations for the same cabin as the canceled reservation, except those with the status "refused"
+        List<Reservation> cabinReservations = reservationRepository.findByCabinAndStateNot(reservation.getCabin(), Etat.refused);
+
+        // Check for overlapping reservations
+        for (Reservation cabinReservation : cabinReservations) {
+            if (overlapExists(reservation, cabinReservation)) {
+                overlappingReservations.add(cabinReservation);
+            }
+        }
+
+        return overlappingReservations;
+    }
+
+
+    // Implement logic to check if two reservations overlap
+    // Compare their start and end dates
+    private boolean overlapExists(Reservation r1, Reservation r2) {
+
+        return r1.getId_reservation() != r2.getId_reservation() &&
+                r1.getDateDeb().before(r2.getDateFin()) && r1.getDateFin().after(r2.getDateDeb());
+    }
+
+
+    public List<Reservation> getReservationByIdUser(Long idUser) {
+        return reservationRepository.findByClient_IdUser(idUser);
+    }
+
+    public List<Reservation> getReservationByIdCabin(int idCabin) {
+        return reservationRepository.findByCabin_Idcabin(idCabin);
+    }
+
+
+    public List<Reservation> getAcceptedReservations() {
+        return reservationRepository.findByState(Etat.accepted);
     }
 
 }
