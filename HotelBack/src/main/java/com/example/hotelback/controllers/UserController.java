@@ -1,6 +1,7 @@
 package com.example.hotelback.controllers;
 
 import com.example.hotelback.dto.UserDto;
+import com.example.hotelback.requests.UserRequest;
 import com.example.hotelback.responses.UserResponse;
 import com.example.hotelback.services.UserService;
 import org.springframework.beans.BeanUtils;
@@ -43,6 +44,20 @@ public class UserController {
         UserDto user = userService.getUserById(idUser);
 
         BeanUtils.copyProperties(user,userResponse);
+
+        return ResponseEntity.ok(userResponse);
+    }
+
+    @PutMapping(path = "/{idUser}")
+    @PreAuthorize("hasAnyAuthority('admin:update','user:update')")
+    public ResponseEntity<UserResponse> updateUser(@PathVariable Long idUser, @RequestBody UserRequest userRequest){
+        UserDto userDto = new UserDto();
+        BeanUtils.copyProperties(userRequest,userDto);
+
+        UserDto updatedUser = userService.updateUser(idUser, userDto);
+
+        UserResponse userResponse = new UserResponse();
+        BeanUtils.copyProperties(updatedUser,userResponse);
 
         return ResponseEntity.ok(userResponse);
     }

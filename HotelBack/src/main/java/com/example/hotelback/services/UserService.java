@@ -11,4 +11,6 @@ public interface UserService extends UserDetailsService {
     void deleteUser(Long idUser);
 
     UserDto getUserById(Long idUser);
+
+    UserDto updateUser(Long idUser, UserDto userDto);
 }
