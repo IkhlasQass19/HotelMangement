@@ -39,6 +39,10 @@ const App = () => {
 				<GlobalStyles />
 				<BrowserRouter>
 					<Routes>
+						{/* LandingPage as the main page */}
+						<Route path="/" element={<LandingPage />} />
+
+						{/* Protected routes */}
 						<Route
 							element={
 								<ProtectedRoute>
@@ -46,31 +50,21 @@ const App = () => {
 								</ProtectedRoute>
 							}
 						>
-							<Route
-								index
-								element={<Navigate replace to="dashboard" />}
-							/>
 							<Route path="dashboard" element={<Dashboard />} />
 							<Route path="bookings" element={<Bookings />} />
-							<Route
-								path="bookings/:bookingId"
-								element={<Booking />}
-							/>
-							<Route
-								path="checkin/:bookingId"
-								element={<Checkin />}
-							/>
+							<Route path="bookings/:bookingId" element={<Booking />} />
+							<Route path="checkin/:bookingId" element={<Checkin />} />
 							<Route path="cabins" element={<Cabins />} />
 							<Route path="account" element={<Account />} />
 							<Route path="settings" element={<Settings />} />
 							<Route path="users" element={<Users />} />
 						</Route>
+
+						{/* Non-protected routes */}
 						<Route path="login" element={<Login />} />
 						<Route path="*" element={<PageNotFound />} />
-						<Route path="/here" element={<LandingPage />} exact />
-						<Route path="/properties/:id" element={<DetailsPage />} exact />
-						<Route path="/example" element={<Example />} />
-
+						<Route path="properties/:id" element={<DetailsPage />} exact />
+						<Route path="example" element={<Example />} />
 					</Routes>
 				</BrowserRouter>
 				<Toaster
