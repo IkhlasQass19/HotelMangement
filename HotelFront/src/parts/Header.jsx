@@ -2,7 +2,7 @@ import Button from "../elements/Button";
 import BrandIcon from "../parts/IconText";
 import Fade from "react-reveal/Fade";
 import { useLocation } from "react-router-dom";
-
+import { NavLink } from "react-router-dom";
 export default function Header() {
   const location = useLocation();
 
@@ -62,6 +62,23 @@ export default function Header() {
                     Agents
                   </Button>
                 </li>
+                <li className={`nav-item${getNavLinkClass("login")}`}>
+        <NavLink className="nav-link" to="/login">
+        Login        </NavLink>
+      </li>
+                
+                <li className={`nav-item${getNavLinkClass("/agents")}`}>
+                  <Button
+                    as="{NavLink}"
+                    className="nav-link"
+                    type="link"
+                    to="/"
+                    exact
+                  >
+                    Sign up
+                  </Button>
+                </li>
+               
               </ul>
             </div>
           </nav>

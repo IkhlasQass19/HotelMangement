@@ -21,6 +21,7 @@ import GlobalStyles from "./styles/GlobalStyles";
 import AppLayout from "./components/AppLayout";
 import ProtectedRoute from "./components/ProtectedRoute";
 import { DarkModeProvider } from "./contexts/DarkModeContext";
+import SignupForm from "./features/authentication/SignupForm";
 
 const queryClient = new QueryClient({
 	defaultOptions: {
@@ -65,6 +66,8 @@ const App = () => {
 						<Route path="*" element={<PageNotFound />} />
 						<Route path="properties/:id" element={<DetailsPage />} exact />
 						<Route path="example" element={<Example />} />
+						
+
 					</Routes>
 				</BrowserRouter>
 				<Toaster
