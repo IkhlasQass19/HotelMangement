@@ -55,6 +55,22 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    public UserDto updateUser(Long idUser, UserDto userDto) {
+
+        User userEntity = userRepository.findByIdUser(idUser);
+        if (userEntity == null) throw new UsernameNotFoundException(userEntity.getUsername());
+
+        userEntity.setFirstname(userDto.getFirstname());
+        userEntity.setLastname(userDto.getLastname());
+        User updatedUser = userRepository.save(userEntity);
+
+        UserDto user = new UserDto();
+        BeanUtils.copyProperties(updatedUser,user);
+
+        return user;
+    }
+
+    @Override
     public void deleteUser(Long idUser) {
         User userEntity = userRepository.findByIdUser(idUser);
         if(userEntity == null) throw new UsernameNotFoundException(userEntity.getUsername());
