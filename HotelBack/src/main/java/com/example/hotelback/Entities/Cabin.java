@@ -22,7 +22,7 @@ public class Cabin {
     private String name;
     private String capacite;
     private String image;
-    private String price;
+    private Float price;
     private String descreption;
     @JsonIgnore
     @OneToMany(mappedBy = "cabin")

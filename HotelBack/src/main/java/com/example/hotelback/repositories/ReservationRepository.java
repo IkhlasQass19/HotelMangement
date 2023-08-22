@@ -12,4 +12,5 @@ public interface ReservationRepository extends JpaRepository<Reservation, Intege
     List<Reservation> findByClient_IdUser(Long idUser);
     List<Reservation> findByCabin_Idcabin(int idCabin);
     List<Reservation> findByState(Etat state);
+
 }
