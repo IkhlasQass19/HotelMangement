@@ -1,6 +1,8 @@
 package com.example.hotelback.auth;
 
 
+
+
 import com.example.hotelback.Entities.Role;
 import com.example.hotelback.Entities.User;
 import com.example.hotelback.config.JwtService;
@@ -40,7 +42,7 @@ public class AuthenticationService {
                 .adresse(request.getAdresse())
                 .email(request.getEmail())
                 .password(passwordEncoder.encode(request.getPassword()))
-                .role(request.getRole())
+                .email(request.getEmail())
                 .build();
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
@@ -49,7 +51,7 @@ public class AuthenticationService {
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
-                .role(user.getRole())
+                .email(user.getEmail())
                 .build();
     }
 
@@ -69,11 +71,12 @@ public class AuthenticationService {
         saveUserToken(user, jwtToken);
 
         // Get the user's role
-        Role userRole = user.getRole(); // Assuming you have a method to get the user's role
-
+        String userEmail= user.getEmail(); // Assuming you have a method to get the user's role
+        Role userRole=user.getRole();
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
+                .email(userEmail)
                 .role(userRole) // Add the user's role to the response
                 .build();
     }

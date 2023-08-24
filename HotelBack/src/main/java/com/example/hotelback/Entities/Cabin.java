@@ -21,7 +21,7 @@ public class Cabin {
     private Integer idcabin;
     private String name;
     private String capacite;
-    private String price;
+    private float price;
     private String descreption;
     @JsonIgnore
     @OneToMany(mappedBy = "cabin")

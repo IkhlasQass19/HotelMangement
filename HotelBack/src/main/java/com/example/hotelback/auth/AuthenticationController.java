@@ -1,6 +1,4 @@
 package com.example.hotelback.auth;
-
-
 import com.example.hotelback.Entities.Role;
 import com.example.hotelback.Entities.User;
 import com.example.hotelback.helpers.jwtHelper;
@@ -39,17 +37,16 @@ public class AuthenticationController {
             AuthenticationResponse authResponse = service.register(request);
             String authToken = authResponse.getAccessToken();
             String refreshToken = authResponse.getRefreshToken();
-            Role userRole = authResponse.getRole();
-
+            String UserEmail=authResponse.getEmail();
             response.put("access_token", authToken);
             response.put("refresh_token", refreshToken);
-            response.put("role", userRole);
 
+            response.put("email", UserEmail);
 
         } catch (Exception e) {
             response.put("error", e.getMessage());
         }
-            return response;
+        return response;
     }
     //    @PostMapping("/authenticate")
 //    public ResponseEntity authenticate(
@@ -70,11 +67,12 @@ public class AuthenticationController {
 
             var auth = service.authenticate(request);
             String authToken = auth.getAccessToken();
+            String email=auth.getEmail();
             Role userRole = auth.getRole();
             Map<String, Object> response = new HashMap<>();
             response.put("token", authToken);
+            response.put("email",email);
             response.put("role", userRole);
-
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());
