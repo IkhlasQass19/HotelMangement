@@ -45,7 +45,7 @@ const App = () => {
 						>
 							<Route
 								index
-								element={<Navigate replace to="dashboard" />}
+								element={<Navigate replace to="login" />}
 							/>
 							<Route path="dashboard" element={<Dashboard />} />
 							<Route path="bookings" element={<Bookings />} />
