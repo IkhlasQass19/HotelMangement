@@ -7,7 +7,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 @Service
 public class ReservationService {
@@ -23,6 +25,7 @@ public class ReservationService {
     }
 
     public Reservation createReservation(Reservation reservation) {
+
         return reservationRepository.save(reservation);
     }
 
@@ -86,6 +89,26 @@ public class ReservationService {
 
     public List<Reservation> getAcceptedReservations() {
         return reservationRepository.findByState(Etat.accepted);
+    }
+
+    public List<Reservation> getRefusedReservations() {
+        return reservationRepository.findByState(Etat.refused);
+    }
+
+    public List<Reservation> getInProgressReservations() {
+        return reservationRepository.findByState(Etat.inProgress);
+    }
+
+    public static float calculatePrice(Date startDate, Date endDate, float pricePerDay) {
+        if (endDate.before(startDate)) {
+            System.out.println("End date should be after start date");
+            return 0; // You can handle this error condition as needed
+        }
+
+        long numDays = TimeUnit.DAYS.convert(endDate.getTime() - startDate.getTime(), TimeUnit.MILLISECONDS) + 1;
+        float totalPrice = numDays * pricePerDay;
+        System.out.println(totalPrice);
+        return totalPrice;
     }
 
 }

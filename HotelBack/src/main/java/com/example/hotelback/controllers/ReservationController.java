@@ -43,6 +43,7 @@ public class ReservationController {
     }
 
 
+
 //    @PostMapping("/add/{idCabin}/{idUser}")
 //    public ResponseEntity<Reservation> createReservationWithIds(
 //            @PathVariable int idCabin, @PathVariable Long idUser, @RequestBody Reservation reservation) {
@@ -87,8 +88,10 @@ public class ReservationController {
         reservation.setClient(user);
         reservation.setState(Etat.inProgress); // Définir l'état initial comme "inProgress"
 
+//        createdReservation.setTotalPrice(ReservationService.calculatePrice(createdReservation.getDateDeb(),createdReservation.getDateFin(),cabin.getPrice()));
+//       // createdreservation.setTotalPrice(ReservationService.calculatePrice(createdReservation.getDateDeb(),createdReservation.getDateFin(),cabin.getPrice()));
+        reservation.setTotalPrice(ReservationService.calculatePrice(reservation.getDateDeb(),reservation.getDateFin(),cabin.getPrice()));
         Reservation createdReservation = reservationService.createReservation(reservation);
-
         if (createdReservation != null) {
             return ResponseEntity.created(URI.create("/reservations/" + createdReservation.getId_reservation()))
                     .body(createdReservation);
@@ -216,5 +219,17 @@ public class ReservationController {
         return ResponseEntity.ok(acceptedReservations);
     }
 
+
+    @GetMapping("/refused")
+    public ResponseEntity<List<Reservation>> getRefusedReservations() {
+        List<Reservation> refusedReservations = reservationService.getRefusedReservations();
+        return ResponseEntity.ok(refusedReservations);
+    }
+
+    @GetMapping("/inProgress")
+    public ResponseEntity<List<Reservation>> getInProgressReservations() {
+        List<Reservation> inProgressReservations = reservationService.getInProgressReservations();
+        return ResponseEntity.ok(inProgressReservations);
+    }
 
 }

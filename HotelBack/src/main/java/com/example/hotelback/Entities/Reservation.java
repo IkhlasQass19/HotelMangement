@@ -25,6 +25,8 @@ public class Reservation {
     private Date dateFin;
     @Column
     private Etat state;
+    @Column
+    private float totalPrice;
 
 
 
@@ -46,5 +48,7 @@ public class Reservation {
     @ManyToOne
     @JoinColumn(name = "idcabin")
     private Cabin cabin;
+
+
 
 }
