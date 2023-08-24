@@ -21,5 +21,5 @@ public class UserResponse {
     private String phoneNumber;
     private String adresse;
     private Role role;
-    private List<Reservation> reservations ;
+    private List<ReservationResponse> reservations ;
 }

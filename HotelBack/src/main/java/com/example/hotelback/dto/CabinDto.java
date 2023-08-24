@@ -1,30 +1,21 @@
+package com.example.hotelback.dto;
 
-package com.example.hotelback.Entities;
-
+import com.example.hotelback.Entities.Reservation;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import jakarta.persistence.Id;
 import lombok.Getter;
 import lombok.Setter;
-import jakarta.persistence.*;
-import lombok.*;
 
+import java.io.Serializable;
 import java.util.List;
 
 @Getter
 @Setter
-@AllArgsConstructor
-@NoArgsConstructor
-@Entity
-public class Cabin {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+public class CabinDto implements Serializable {
     private Integer idcabin;
     private String name;
     private String capacite;
     private String price;
     private String descreption;
     @JsonIgnore
-    @OneToMany(mappedBy = "cabin")
     private List<Reservation> reservations;
-
 }

@@ -5,6 +5,7 @@ import com.example.hotelback.Entities.Etat;
 import com.example.hotelback.Entities.Reservation;
 import com.example.hotelback.Entities.User;
 import com.example.hotelback.dto.UserDto;
+import com.example.hotelback.services.CabinService;
 import com.example.hotelback.services.ReservationService;
 import com.example.hotelback.services.UserService;
 import com.example.hotelback.services.impl.UserServiceImpl;
@@ -22,7 +23,7 @@ public class ReservationController {
     @Autowired
     private ReservationService reservationService;
     @Autowired
-    private CabinController cabinController;
+    private CabinService cabinService;
     @Autowired
     private  UserService userService;
 
@@ -74,7 +75,7 @@ public class ReservationController {
     public ResponseEntity<Reservation> createReservationWithIds(
             @PathVariable int idCabin, @PathVariable Long idUser, @RequestBody Reservation reservation) {
         System.out.println(idUser);
-        Cabin cabin = cabinController.getCabinById(idCabin);
+        Cabin cabin = cabinService.getCabinById(idCabin);
         UserDto userDto = userService.getUserById(idUser);
 
         if (cabin == null || userDto == null) {
