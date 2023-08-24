@@ -6,20 +6,12 @@ import Input from "../../components/Input";
 import FormRowVertical from "../../components/FormRowVertical";
 
 import { useAuth } from "./useAuth";
+import SpinnerMini from "../../components/SpinnerMini";
 
-import axios from 'axios';
-import { useNavigate } from 'react-router-dom';
 function LoginForm() {
 	// React State
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const person = {
- 
-		email:email,
-		password:password,
-	   
-	};
-	const navigateTo = useNavigate();
 
 	// Custom Hook(React Query)
 	const { login, isLoading } = useAuth();
@@ -40,33 +32,7 @@ function LoginForm() {
 			}
 		);
 	}
-	const handleSignInClick = async (event) => {
-		event.preventDefault();
-	
-	
-	
-		try {
-		  const response = await axios.post('http://localhost:8080/api/v1/auth/authenticate', person, {
-			headers: {
-			  'Content-Type': 'application/json',
-			  // Your token
-			},
-		  });
-	
-		  const accessToken = response.data.token;
-		  console.log('Registration successful:', response);
-		  localStorage.setItem('accessToken', accessToken);
-		  console.log(response.data.role)
-		  if(response.data.role=="admin") navigateTo('/dashboard')
-		  
-		 
-		  // You might want to redirect the user or show a success message here
-		} catch (error) {
-			console.log("Invalid email or password. Please try again.");
-		
-		  // Handle errors appropriately
-		}
-	  };
+
 	return (
 		<Form onSubmit={handleSubmit}>
 			<FormRowVertical label="Email address">
@@ -91,15 +57,9 @@ function LoginForm() {
 				/>
 			</FormRowVertical>
 			<FormRowVertical>
-			<Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2 }}
-              onClick={handleSignInClick}
-            >
-              Sign In
-            </Button>
+				<Button size="large" disabled={isLoading}>
+					{!isLoading ? "Log In" : <SpinnerMini />}
+				</Button>
 			</FormRowVertical>
 		</Form>
 	);
