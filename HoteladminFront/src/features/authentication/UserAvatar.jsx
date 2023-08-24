@@ -23,18 +23,18 @@ const Avatar = styled.img`
 
 const UserAvatar = () => {
 	// Custom hooks
-	const { user } = useUser();
+	// const { user } = useUser();
 
 	// Derived state
-	const { avatar, fullName } = user.user_metadata;
+	// const { avatar, fullName } = user.user_metadata;
 
 	return (
 		<StyledUserAvatar>
 			<Avatar
-				src={avatar || "default-user.jpg"}
-				alt={`Avatar of ${fullName}`}
+				// src={avatar || "default-user.jpg"}
+				// alt={`Avatar of ${fullName}`}
 			/>
-			<span>{fullName}</span>
+			{/* <span>{fullName}</span> */}
 		</StyledUserAvatar>
 	);
 };

@@ -1,13 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 
 import { getCurrentUser } from "../../services/apiAuth";
-
 export const useUser = () => {
-	// React Query
 	const { isLoading, data: user } = useQuery({
 		queryKey: ["user"],
 		queryFn: getCurrentUser,
 	});
-
-	return { isLoading, user, isAuthenticated: user?.role === "authenticated" };
+	const storedUserData = localStorage.getItem("user");
+	const parsedUserData = JSON.parse(storedUserData);
+	console.log("Stored user data:", parsedUserData);
+	const role = parsedUserData?.role;
+	console.log("Role:", role);
+	return { isLoading, isAuthenticated: role === "admin" };
 };
