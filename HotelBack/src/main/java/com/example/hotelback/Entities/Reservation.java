@@ -18,7 +18,7 @@ import java.util.Date;
 public class Reservation {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id_reservation;
+    private Integer id_reservation;
     @Column
     private Date dateDeb;
     @Column

@@ -5,5 +5,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface CabinRepository extends JpaRepository<Cabin, Integer> {
+
+    Cabin findByIdcabin(Integer idcabin);
 }
 
