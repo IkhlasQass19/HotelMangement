@@ -56,11 +56,13 @@ function LoginForm() {
 		  const accessToken = response.data.token;
 		  console.log('Registration successful:', response);
 		  localStorage.setItem('accessToken', accessToken);
-		  navigateTo('/dashboard')
+		  console.log(response.data.role)
+		  if(response.data.role=="admin") navigateTo('/dashboard')
+		  
 		 
 		  // You might want to redirect the user or show a success message here
 		} catch (error) {
-		  console.error('Login failed:', error);
+			console.log("Invalid email or password. Please try again.");
 		
 		  // Handle errors appropriately
 		}
