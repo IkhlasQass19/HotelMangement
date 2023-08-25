@@ -14,7 +14,7 @@ public class CabinDto implements Serializable {
     private Integer idcabin;
     private String name;
     private String capacite;
-    private String price;
+    private float price;
     private String descreption;
     @JsonIgnore
     private List<Reservation> reservations;
