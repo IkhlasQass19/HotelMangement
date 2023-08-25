@@ -38,9 +38,10 @@ public class AuthenticationController {
             String authToken = authResponse.getAccessToken();
             String refreshToken = authResponse.getRefreshToken();
             String UserEmail=authResponse.getEmail();
+            Role UserRole=authResponse.getRole();
             response.put("access_token", authToken);
             response.put("refresh_token", refreshToken);
-
+            response.put("role", UserRole);
             response.put("email", UserEmail);
 
         } catch (Exception e) {
