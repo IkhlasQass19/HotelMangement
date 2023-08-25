@@ -48,16 +48,14 @@ const Amount = styled.div`
 
 function BookingRow({
 	booking: {
-		id: bookingId,
-		created_at,
-		startDate,
-		endDate,
-		numNights,
-		numGuests,
+		id_reservation: bookingId,
+		dateDeb: startDate,
+		dateFin: endDate,
+		state: status,
 		totalPrice,
-		status,
-		guests: { fullName: guestName, email },
-		cabins: { name: cabinName },
+		nbrNights,
+		client: { firstname: guestName, lastname :guestLName ,email },
+		cabin: { name: cabinName },
 	},
 }) {
 	// Router-DOM hooks
@@ -79,7 +77,7 @@ function BookingRow({
 			<Cabin>{cabinName}</Cabin>
 
 			<Stacked>
-				<span>{guestName}</span>
+				<span>{guestName} {guestLName}</span>
 				<span>{email}</span>
 			</Stacked>
 
@@ -88,7 +86,7 @@ function BookingRow({
 					{isToday(new Date(startDate))
 						? "Today"
 						: formatDistanceFromNow(startDate)}{" "}
-					&rarr; {numNights} night stay
+					&rarr; {nbrNights} night stay
 				</span>
 				<span>
 					{format(new Date(startDate), "MMM dd yyyy")} &mdash;{" "}

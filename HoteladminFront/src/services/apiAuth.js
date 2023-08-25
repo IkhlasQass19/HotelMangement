@@ -32,7 +32,7 @@ export const login = async ({ email, password }) => {
 	});
 
 	const user = JSON.stringify(response.data);
-	console.log("hhhhh"+user)
+	// console.log("hhhhh"+user)
 	localStorage.setItem("user", user);
 
 	// Error Handling
@@ -55,7 +55,7 @@ export const getCurrentUser = async () => {
 	// // Error Handling
 	// if (error) throw new Error(error.message);
 	const data =  localStorage.getItem('user');
-console.log("je suis ici "+data);
+	console.log("je suis ici "+data);
 	return data;
 };
 
@@ -100,4 +100,5 @@ export const logout = async () => {
 
 	// Error Handling
 	// if (error) throw new Error(error.message);
+	localStorage.removeItem("user");
 };
