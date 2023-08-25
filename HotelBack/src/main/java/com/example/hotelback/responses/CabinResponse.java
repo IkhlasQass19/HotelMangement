@@ -12,7 +12,7 @@ public class CabinResponse {
     private Integer idcabin;
     private String name;
     private String capacite;
-    private String price;
+    private float price;
     private String descreption;
     private byte[] imageFile;
     private List<ReservationResponse> reservations;

@@ -8,6 +8,6 @@ import lombok.Setter;
 public class CabinRequest {
     private String name;
     private String capacite;
-    private String price;
+    private float price;
     private String descreption;
 }
