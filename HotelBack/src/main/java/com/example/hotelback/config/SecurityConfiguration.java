@@ -40,7 +40,7 @@ public class SecurityConfiguration {
     @Bean
     public CorsFilter corsFilter() {
         CorsConfiguration corsConfig = new CorsConfiguration();
-        corsConfig.addAllowedOrigin("*"); // Adjust this to your specific allowed origins
+        corsConfig.addAllowedOriginPattern("*"); // Use allowedOriginPattern instead of allowedOrigin
         corsConfig.addAllowedMethod("*");
         corsConfig.addAllowedHeader("*");
         corsConfig.setAllowCredentials(true);
@@ -50,47 +50,21 @@ public class SecurityConfiguration {
 
         return new CorsFilter(source);
     }
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .csrf()
                 .disable()
+                .cors() // Add this line for CORS configuration
+                .and()
                 .authorizeHttpRequests()
                 .requestMatchers(
                         "/api/v1/auth/**",
-                        "/api/v1/cabins/open/**",
-                        "/api/v1/doc/**",
-                        "/rdv/**",
-                        "/v3/api-docs/**",
-                        "/swagger-resources",
-                        "/swagger-resources/**",
-                        "/configuration/ui",
-                        "/configuration/security",
-                        "/swagger-ui/**",
-                        "/webjars/**",
-                        "/swagger-ui.html"
+                        "/api/v1/cabins/open/**"
+                        // ... other permitAll endpoints
                 )
                 .permitAll()
-
-
-               // .requestMatchers("/api/v1/management/**").hasAnyRole(admin.name(),user.name())
-
-
-                .requestMatchers(GET, "/api/v1/management/**").hasAnyAuthority(admin_READ.name(),user_READ.name())
-                .requestMatchers(POST, "/api/v1/management/**").hasAnyAuthority(user_CREATE.name(), user_CREATE.name())
-                .requestMatchers(PUT, "/api/v1/management/**").hasAnyAuthority(admin_UPDATE.name(), user_UPDATE.name())
-                .requestMatchers(DELETE, "/api/v1/management/**").hasAnyAuthority(user_DELETE.name(), user_DELETE.name())
-
-
-                /* .requestMatchers("/api/v1/admin/**").hasRole(ADMIN.name())
-
-                 .requestMatchers(GET, "/api/v1/admin/**").hasAuthority(ADMIN_READ.name())
-                 .requestMatchers(POST, "/api/v1/admin/**").hasAuthority(ADMIN_CREATE.name())
-                 .requestMatchers(PUT, "/api/v1/admin/**").hasAuthority(ADMIN_UPDATE.name())
-                 .requestMatchers(DELETE, "/api/v1/admin/**").hasAuthority(ADMIN_DELETE.name())*/
-
-
+                // ... your other configurations
                 .anyRequest()
                 .authenticated()
                 .and()
@@ -102,10 +76,10 @@ public class SecurityConfiguration {
                 .logout()
                 .logoutUrl("/api/v1/auth/logout")
                 .addLogoutHandler(logoutHandler)
-                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext())
-        ;
+                .logoutSuccessHandler((request, response, authentication) -> SecurityContextHolder.clearContext());
 
         return http.build();
     }
+
 }
 
