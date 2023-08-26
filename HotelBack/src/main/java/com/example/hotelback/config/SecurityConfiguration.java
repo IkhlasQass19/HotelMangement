@@ -60,7 +60,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests()
                 .requestMatchers(
                         "/api/v1/auth/**",
-                        "/api/v1/cabins/open/**"
+                        "/api/v1/cabins/**"
                         // ... other permitAll endpoints
                 )
                 .permitAll()
