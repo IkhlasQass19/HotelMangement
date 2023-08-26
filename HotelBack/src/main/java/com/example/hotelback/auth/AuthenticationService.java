@@ -47,12 +47,12 @@ public class AuthenticationService {
         var savedUser = repository.save(user);
         var jwtToken = jwtService.generateToken(user);
         var refreshToken = jwtService.generateRefreshToken(user);
+
         saveUserToken(savedUser, jwtToken);
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
-                .email(user.getEmail())
-                .role(user.getRole())
+                .user(savedUser)
                 .build();
     }
 
@@ -77,8 +77,7 @@ public class AuthenticationService {
         return AuthenticationResponse.builder()
                 .accessToken(jwtToken)
                 .refreshToken(refreshToken)
-                .email(userEmail)
-                .role(userRole) // Add the user's role to the response
+                .user(user) // Add the user's role to the response
                 .build();
     }
 

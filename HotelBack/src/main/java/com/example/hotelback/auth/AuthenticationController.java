@@ -3,6 +3,7 @@ import com.example.hotelback.Entities.Role;
 import com.example.hotelback.Entities.User;
 import com.example.hotelback.helpers.jwtHelper;
 import com.example.hotelback.repositories.UserRepository;
+import com.example.hotelback.responses.UserJwtResponse;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
@@ -32,17 +33,24 @@ public class AuthenticationController {
             @RequestBody RegisterRequest request
     ) {
         Map<String, Object> response = new HashMap<>();
+        UserJwtResponse userJwtResponse= new UserJwtResponse();
 
         try {
             AuthenticationResponse authResponse = service.register(request);
             String authToken = authResponse.getAccessToken();
             String refreshToken = authResponse.getRefreshToken();
-            String UserEmail=authResponse.getEmail();
-            Role UserRole=authResponse.getRole();
+            User user=authResponse.getUser();
+            userJwtResponse.setAdresse(user.getAdresse());
+            userJwtResponse.setIdUser(user.getIdUser());
+            userJwtResponse.setRole(user.getRole());
+            userJwtResponse.setEmail(user.getEmail());
+            userJwtResponse.setLastname(user.getLastname());
+            userJwtResponse.setFirstname(user.getFirstname());
+            userJwtResponse.setPhoneNumber(user.getPhoneNumber());
             response.put("access_token", authToken);
             response.put("refresh_token", refreshToken);
-            response.put("role", UserRole);
-            response.put("email", UserEmail);
+            response.put("user", userJwtResponse);
+
 
         } catch (Exception e) {
             response.put("error", e.getMessage());
@@ -68,12 +76,19 @@ public class AuthenticationController {
 
             var auth = service.authenticate(request);
             String authToken = auth.getAccessToken();
-            String email=auth.getEmail();
-            Role userRole = auth.getRole();
+            User user=auth.getUser();
             Map<String, Object> response = new HashMap<>();
+
+            UserJwtResponse userJwtResponse= new UserJwtResponse();
+            userJwtResponse.setAdresse(user.getAdresse());
+            userJwtResponse.setIdUser(user.getIdUser());
+            userJwtResponse.setRole(user.getRole());
+            userJwtResponse.setEmail(user.getEmail());
+            userJwtResponse.setLastname(user.getLastname());
+            userJwtResponse.setFirstname(user.getFirstname());
+            userJwtResponse.setPhoneNumber(user.getPhoneNumber());
             response.put("token", authToken);
-            response.put("email",email);
-            response.put("role", userRole);
+            response.put("user",userJwtResponse);
             return ResponseEntity.ok(response);
         } catch (Exception e) {
             return ResponseEntity.badRequest().body(e.getMessage());

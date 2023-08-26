@@ -8,6 +8,7 @@ package com.example.hotelback.auth;
 
 
 import com.example.hotelback.Entities.Role;
+import com.example.hotelback.Entities.User;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -25,10 +26,9 @@ public class AuthenticationResponse {
     @JsonProperty("refresh_token")
     private String refreshToken;
 
-    @JsonProperty("email") // New field for user's role
-    private String email;
-    @JsonProperty("role") // New field for user's role
-    private Role role;
+    @JsonProperty("user") // New field for user's role
+    private User user;
+
 }
 
 
