@@ -68,8 +68,9 @@ public class CabinController {
 
             //add image
             String cabinImage = storageService.getImageByIdCabin(cabinDto.getIdcabin());
-
-            byte[] image = Files.readAllBytes(new File(cabinImage).toPath());
+            byte[] image =null ;
+            if(cabinImage!=null)
+                image = Files.readAllBytes(new File(cabinImage).toPath());
             cabinResponse.setImageFile(image);
 
             cabineResponses.add(cabinResponse);
