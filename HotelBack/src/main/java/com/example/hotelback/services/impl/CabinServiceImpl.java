@@ -44,6 +44,21 @@ public class CabinServiceImpl implements CabinService {
     }
 
     @Override
+    public List<CabinDto> getAllCabines() {
+        List<CabinDto> cabinDtos = new ArrayList<>();
+        List<Cabin> cabins = new ArrayList<>();
+        cabinRepository.findAll().forEach(cabins::add);
+
+        for(Cabin cabinEntity:cabins){
+            CabinDto cabinDto = new CabinDto();
+            BeanUtils.copyProperties(cabinEntity,cabinDto);
+            cabinDtos.add(cabinDto);
+        }
+
+        return cabinDtos;
+    }
+
+    @Override
     public CabinDto getCabinByIdCabin(Integer idCabin) {
         CabinDto cabinDto = new CabinDto();
         Cabin cabinEntity = cabinRepository.findByIdcabin(idCabin);
