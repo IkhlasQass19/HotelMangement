@@ -16,4 +16,6 @@ public interface CabinService {
     CabinDto getCabinByIdCabin(Integer idCabin);
 
     Cabin getCabinById(int idCabin);
+
+    List<CabinDto> getAllCabines();
 }
