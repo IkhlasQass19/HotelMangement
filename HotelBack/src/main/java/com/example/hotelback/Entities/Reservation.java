@@ -44,7 +44,6 @@ public class Reservation {
 ////    private Cabin cabin;
 
 
-    @JsonIgnore
     @ManyToOne
     @JoinColumn(name = "idcabin")
     private Cabin cabin;
