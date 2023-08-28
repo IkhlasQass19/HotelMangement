@@ -57,8 +57,8 @@ public class CabinController {
         return ResponseEntity.ok(cabinResponse);
     }
 
-    @GetMapping("/open/allCabins")
-    public ResponseEntity<List<CabinResponseWithoutResrvation>> getAllCabins() throws IOException {
+    @GetMapping("/open/getallCabins")
+    public ResponseEntity<List<CabinResponseWithoutResrvation>> AllCabins() throws IOException {
         List<CabinResponseWithoutResrvation> cabineResponses = new ArrayList<>();
         List<CabinDto> cabins = cabinService.getAllCabines();
 
