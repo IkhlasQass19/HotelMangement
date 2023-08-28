@@ -46,7 +46,7 @@ public class StorgeServiceImpl implements StorageService {
 
         if (file.getContentType() == null ||
                 (!file.getContentType().equalsIgnoreCase("image/jpeg")&&
-                        !file.getContentType().equalsIgnoreCase("image/jpg"))) {
+                       !file.getContentType().equalsIgnoreCase("image/jpg"))&&!file.getContentType().equalsIgnoreCase("image/png")) {
             throw new IllegalArgumentException("Type de fichier invalide. Seules les images au format JPEG sont autorisées.");
         }
 
