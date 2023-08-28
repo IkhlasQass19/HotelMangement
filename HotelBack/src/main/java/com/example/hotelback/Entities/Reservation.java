@@ -32,16 +32,11 @@ public class Reservation {
 
     @OneToOne
 
-    @JsonIgnore
+
     @JoinColumn(name = "idUser")
     private User client;
 
 
-//    @OneToOne
-//
-//    @JsonIgnore
-////    @JoinColumn(name = "idcabin")
-////    private Cabin cabin;
 
 
     @ManyToOne

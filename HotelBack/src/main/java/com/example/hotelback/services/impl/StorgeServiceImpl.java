@@ -80,9 +80,19 @@ public class StorgeServiceImpl implements StorageService {
 
     @Override
     public String getImageByIdCabin(Integer idCabin) {
-
         Cabin cabin = cabinRepository.findByIdcabin(idCabin);
+        if (cabin == null) {
+            // Handle cabin not found scenario
+            return null;
+        }
+
         ImageData imageData = imageDataRepository.getImageDataByCabin(cabin);
-        return imageData.getImgPath();
+        if (imageData != null) {
+            return imageData.getImgPath();
+        } else {
+            // Handle image data not found scenario
+            return null;
+        }
     }
+
 }

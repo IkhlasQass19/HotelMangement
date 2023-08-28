@@ -23,9 +23,9 @@ public class User implements UserDetails {
     private Long idUser;
 
     @Column(name = "nom")
-    private String firstname;
+    private String firstName;
     @Column(name = "prenom")
-    private String lastname;
+    private String lastName;
     @Column(name = "email", unique = true )
     private String email;
     @Column(name = "password")

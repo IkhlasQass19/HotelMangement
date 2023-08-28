@@ -60,6 +60,7 @@ public class CabinController {
         return ResponseEntity.ok(cabinResponse);
     }
 
+
     @GetMapping("/open/allCabins")
     public ResponseEntity<Page<CabinResponseWithoutResrvation>> getAllCabins(
             @PageableDefault(size = 12, page = 0) Pageable pageable
@@ -82,6 +83,29 @@ public class CabinController {
                 });
 
         return ResponseEntity.ok(cabinResponses);
+    }
+  
+    @GetMapping("/open/getallCabins")
+    public ResponseEntity<List<CabinResponseWithoutResrvation>> AllCabins() throws IOException {
+        List<CabinResponseWithoutResrvation> cabineResponses = new ArrayList<>();
+        List<CabinDto> cabins = cabinService.getAllCabines();
+
+        for(CabinDto cabinDto:cabins){
+            CabinResponseWithoutResrvation cabinResponse = new CabinResponseWithoutResrvation();
+            BeanUtils.copyProperties(cabinDto,cabinResponse);
+
+            //add image
+            String cabinImage = storageService.getImageByIdCabin(cabinDto.getIdcabin());
+            byte[] image =null ;
+            if(cabinImage!=null)
+                image = Files.readAllBytes(new File(cabinImage).toPath());
+            cabinResponse.setImageFile(image);
+
+            cabineResponses.add(cabinResponse);
+        }
+
+        return ResponseEntity.ok(cabineResponses);
+
     }
 
     @GetMapping("/open/cabin/{idCabin}")

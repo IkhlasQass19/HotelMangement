@@ -20,7 +20,7 @@ public class Cabin {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer idcabin;
     private String name;
-    private String capacite;
+    private  int capacite;
     private float price;
     private String descreption;
     @JsonIgnore

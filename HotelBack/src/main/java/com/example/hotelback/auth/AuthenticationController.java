@@ -44,8 +44,8 @@ public class AuthenticationController {
             userJwtResponse.setIdUser(user.getIdUser());
             userJwtResponse.setRole(user.getRole());
             userJwtResponse.setEmail(user.getEmail());
-            userJwtResponse.setLastname(user.getLastname());
-            userJwtResponse.setFirstname(user.getFirstname());
+            userJwtResponse.setLastname(user.getLastName());
+            userJwtResponse.setFirstname(user.getFirstName());
             userJwtResponse.setPhoneNumber(user.getPhoneNumber());
             response.put("access_token", authToken);
             response.put("refresh_token", refreshToken);
@@ -84,8 +84,8 @@ public class AuthenticationController {
             userJwtResponse.setIdUser(user.getIdUser());
             userJwtResponse.setRole(user.getRole());
             userJwtResponse.setEmail(user.getEmail());
-            userJwtResponse.setLastname(user.getLastname());
-            userJwtResponse.setFirstname(user.getFirstname());
+            userJwtResponse.setLastname(user.getLastName());
+            userJwtResponse.setFirstname(user.getFirstName());
             userJwtResponse.setPhoneNumber(user.getPhoneNumber());
             response.put("token", authToken);
             response.put("user",userJwtResponse);

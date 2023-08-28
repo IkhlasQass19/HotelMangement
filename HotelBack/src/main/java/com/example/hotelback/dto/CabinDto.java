@@ -13,7 +13,7 @@ import java.util.List;
 public class CabinDto implements Serializable {
     private Integer idcabin;
     private String name;
-    private String capacite;
+    private int capacite;
     private float price;
     private String descreption;
     @JsonIgnore
