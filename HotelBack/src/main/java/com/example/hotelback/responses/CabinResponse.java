@@ -11,7 +11,7 @@ public class CabinResponse {
 
     private Integer idcabin;
     private String name;
-    private String capacite;
+    private int capacite;
     private float price;
     private String descreption;
     private byte[] imageFile;

@@ -7,7 +7,7 @@ import lombok.Setter;
 @Setter
 public class CabinRequest {
     private String name;
-    private String capacite;
+    private int capacite;
     private float price;
     private String descreption;
 }
