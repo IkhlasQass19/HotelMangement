@@ -8,6 +8,8 @@ import com.example.hotelback.services.CabinService;
 import org.apache.velocity.exception.ResourceNotFoundException;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -31,18 +33,14 @@ public class CabinServiceImpl implements CabinService {
     }
 
     @Override
-    public List<CabinDto> getAllCabines() {
-        List<CabinDto> cabinDtos = new ArrayList<>();
-        List<Cabin> cabins = new ArrayList<>();
-        cabinRepository.findAll().forEach(cabins::add);
-
-        for(Cabin cabinEntity:cabins){
-            CabinDto cabinDto = new CabinDto();
-            BeanUtils.copyProperties(cabinEntity,cabinDto);
-            cabinDtos.add(cabinDto);
-        }
-
-        return cabinDtos;
+    public Page<CabinDto> getAllCabins(Pageable pageable) {
+        Page<Cabin> cabinsPage = cabinRepository.findAll(pageable);
+        return cabinsPage.map(this::convertToCabinDto);
+    }
+    private CabinDto convertToCabinDto(Cabin cabinEntity) {
+        CabinDto cabinDto = new CabinDto();
+        BeanUtils.copyProperties(cabinEntity, cabinDto);
+        return cabinDto;
     }
 
     @Override

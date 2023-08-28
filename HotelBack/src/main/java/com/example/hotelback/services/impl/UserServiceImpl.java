@@ -60,6 +60,10 @@ public class UserServiceImpl implements UserService {
         User userEntity = userRepository.findByIdUser(idUser);
         if (userEntity == null) throw new UsernameNotFoundException(userEntity.getUsername());
 
+        userEntity.setFirstname(userDto.getFirstname());
+        userEntity.setLastname(userDto.getLastname());
+        userEntity.setPhoneNumber(userDto.getPhoneNumber());
+        userEntity.setAdresse(userDto.getAdresse());
         userEntity.setFirstName(userDto.getFirstname());
         userEntity.setLastName(userDto.getLastname());
         User updatedUser = userRepository.save(userEntity);

@@ -8,6 +8,9 @@ import com.example.hotelback.services.StorageService;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -57,6 +60,31 @@ public class CabinController {
         return ResponseEntity.ok(cabinResponse);
     }
 
+
+    @GetMapping("/open/allCabins")
+    public ResponseEntity<Page<CabinResponseWithoutResrvation>> getAllCabins(
+            @PageableDefault(size = 12, page = 0) Pageable pageable
+    ) {
+        Page<CabinResponseWithoutResrvation> cabinResponses = cabinService.getAllCabins(pageable)
+                .map(cabinDto -> {
+                    CabinResponseWithoutResrvation cabinResponse = new CabinResponseWithoutResrvation();
+                    BeanUtils.copyProperties(cabinDto, cabinResponse);
+
+                    try {
+                        String cabinImage = storageService.getImageByIdCabin(cabinDto.getIdcabin());
+                        byte[] image = Files.readAllBytes(new File(cabinImage).toPath());
+                        cabinResponse.setImageFile(image);
+                    } catch (IOException e) {
+                        // Handle the exception as needed
+                        e.printStackTrace(); // Example: Print the stack trace
+                    }
+
+                    return cabinResponse;
+                });
+
+        return ResponseEntity.ok(cabinResponses);
+    }
+  
     @GetMapping("/open/getallCabins")
     public ResponseEntity<List<CabinResponseWithoutResrvation>> AllCabins() throws IOException {
         List<CabinResponseWithoutResrvation> cabineResponses = new ArrayList<>();

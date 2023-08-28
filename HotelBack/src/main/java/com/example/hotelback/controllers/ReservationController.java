@@ -5,20 +5,25 @@ import com.example.hotelback.Entities.Etat;
 import com.example.hotelback.Entities.Reservation;
 import com.example.hotelback.Entities.User;
 import com.example.hotelback.dto.UserDto;
+import com.example.hotelback.responses.OnlyDatesReservationResponse;
 import com.example.hotelback.services.CabinService;
 import com.example.hotelback.services.ReservationService;
 import com.example.hotelback.services.UserService;
 import com.example.hotelback.services.impl.UserServiceImpl;
+import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URI;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
-@RequestMapping("/reservations")
+@RequestMapping("/api/v1/reservations")
+@CrossOrigin(origins = "http://localhost:5173/")
 
 public class ReservationController {
     @Autowired
@@ -231,6 +236,24 @@ public class ReservationController {
     public ResponseEntity<List<Reservation>> getInProgressReservations() {
         List<Reservation> inProgressReservations = reservationService.getInProgressReservations();
         return ResponseEntity.ok(inProgressReservations);
+    }
+
+    @GetMapping("/open/datesResvations/{idCabin}")
+    public ResponseEntity<List<OnlyDatesReservationResponse>> getDatesOfAcceptedReservations(@PathVariable int idCabin){
+        List<Reservation> cabinReservations = reservationService.getReservationByIdCabin(idCabin);
+        List<Reservation> acceptedReservations = cabinReservations.stream()
+                .filter(reservation -> reservation.getState() == Etat.accepted)
+                .collect(Collectors.toList());
+        List<OnlyDatesReservationResponse> datesOfAcceptedReservations = new ArrayList<>();
+
+        for(Reservation reservation:acceptedReservations){
+            OnlyDatesReservationResponse onlyDatesReservationResponse = new OnlyDatesReservationResponse();
+            BeanUtils.copyProperties(reservation,onlyDatesReservationResponse);
+
+            datesOfAcceptedReservations.add(onlyDatesReservationResponse);
+        }
+
+        return ResponseEntity.ok(datesOfAcceptedReservations);
     }
 
 }
