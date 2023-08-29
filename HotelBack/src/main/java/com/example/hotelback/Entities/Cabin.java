@@ -23,7 +23,7 @@ public class Cabin {
     private  int capacite;
     private float price;
     private String descreption;
-    private String type;
+    private String typeCabin;
     private float surface;
     private String basicFeatures;
     private String bedroomFeatures;
