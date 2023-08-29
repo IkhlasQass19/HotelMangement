@@ -73,4 +73,18 @@ public class CabinServiceImpl implements CabinService {
         return cabinRepository.findById(idCabin)
                 .orElseThrow(() -> new ResourceNotFoundException("Cabin not found with id: " + idCabin));
     }
+    @Override
+    public void deleteCabin(Integer idCabin) {
+        Cabin cabin = cabinRepository.findById(idCabin).orElse(null);
+        cabinRepository.deleteById(cabin.getIdcabin());
+
+    }
+    @Override
+    public Cabin updateCabin(CabinDto cabinDto) {
+        Cabin cabin = new Cabin();
+        BeanUtils.copyProperties(cabinDto,cabin);
+
+        Cabin EditCabin =cabinRepository.save(cabin);
+        return EditCabin;
+    }
 }

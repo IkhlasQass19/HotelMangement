@@ -24,7 +24,10 @@ public class Cabin {
     private float price;
     private String descreption;
     @JsonIgnore
-    @OneToMany(mappedBy = "cabin")
+    @OneToMany(mappedBy = "cabin", cascade = CascadeType.ALL)
     private List<Reservation> reservations;
+    @OneToOne(mappedBy = "cabin", cascade = CascadeType.ALL)
+    private ImageData imageData;
+
 
 }

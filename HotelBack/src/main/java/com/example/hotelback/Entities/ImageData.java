@@ -24,8 +24,9 @@ public class ImageData {
     private String imgPath;
 
     @OneToOne(targetEntity = Cabin.class, fetch = FetchType.EAGER)
-    @JoinColumn(nullable = false,name = "idcabin")
+    @JoinColumn(nullable = false, name = "idcabin")
     private Cabin cabin;
+
 
     @PrePersist
     protected void onCreate(){
