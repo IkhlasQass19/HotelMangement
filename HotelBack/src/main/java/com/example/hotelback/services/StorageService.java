@@ -8,4 +8,5 @@ public interface StorageService {
     public String uploadImageToFileSystem(Integer idCabin, MultipartFile file) throws IOException;
 
     String getImageByIdCabin(Integer idCabin);
+    boolean deleteImageByIdCabin(Integer idCabin);
 }

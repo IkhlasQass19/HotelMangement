@@ -10,4 +10,5 @@ import org.springframework.stereotype.Repository;
 public interface ImageDataRepository extends JpaRepository<ImageData, Integer> {
     boolean existsByCabin(Cabin cabin);
     ImageData getImageDataByCabin(Cabin cabin);
+    boolean deleteByCabin(Cabin cabin);
 }

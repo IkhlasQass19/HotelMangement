@@ -18,4 +18,8 @@ public interface CabinService {
     Cabin getCabinById(int idCabin);
 
     List<CabinDto> getAllCabines();
+
+    void deleteCabin(Integer idCabin);
+
+    Cabin updateCabin(CabinDto cabinDto);
 }

@@ -1,5 +1,6 @@
 package com.example.hotelback.controllers;
 
+import com.example.hotelback.Entities.Cabin;
 import com.example.hotelback.dto.CabinDto;
 import com.example.hotelback.requests.CabinRequest;
 import com.example.hotelback.responses.CabinResponseWithoutResrvation;
@@ -121,6 +122,37 @@ public class CabinController {
         cabinResponse.setImageFile(image);
 
         return ResponseEntity.ok(cabinResponse);
-    }
 
+    }
+    @DeleteMapping("/delete/{idCabin}")
+    @PreAuthorize("hasAuthority('admin:delete')")
+    public ResponseEntity<Void> deleteCabin(@PathVariable Integer idCabin) {
+        cabinService.deleteCabin(idCabin);
+        return ResponseEntity.noContent().build();
+    }
+    @PutMapping("/update/{idCabin}")
+    @PreAuthorize("hasAuthority('admin:update')")
+    public ResponseEntity<CabinResponseWithoutResrvation> updateCabin(
+            @PathVariable Integer idCabin,
+            @RequestBody CabinRequest cabinRequest
+    ) throws IOException {
+        CabinDto cabinDto = new CabinDto();
+        BeanUtils.copyProperties(cabinRequest, cabinDto);
+        cabinDto.setIdcabin(idCabin);
+
+        Cabin updatedCabin = cabinService.updateCabin(cabinDto);
+
+        CabinResponseWithoutResrvation cabinResponse = new CabinResponseWithoutResrvation();
+        BeanUtils.copyProperties(updatedCabin, cabinResponse);
+
+        try {
+            String cabinImage = storageService.getImageByIdCabin(updatedCabin.getIdcabin());
+            byte[] image = Files.readAllBytes(new File(cabinImage).toPath());
+            cabinResponse.setImageFile(image);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return ResponseEntity.ok(cabinResponse);
+    }
 }

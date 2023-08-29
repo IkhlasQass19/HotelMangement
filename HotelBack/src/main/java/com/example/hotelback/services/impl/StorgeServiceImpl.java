@@ -46,7 +46,7 @@ public class StorgeServiceImpl implements StorageService {
 
         if (file.getContentType() == null ||
                 (!file.getContentType().equalsIgnoreCase("image/jpeg")&&
-                       !file.getContentType().equalsIgnoreCase("image/jpg"))&&!file.getContentType().equalsIgnoreCase("image/png")) {
+                        !file.getContentType().equalsIgnoreCase("image/jpg")) &&!file.getContentType().equalsIgnoreCase("image/png")){
             throw new IllegalArgumentException("Type de fichier invalide. Seules les images au format JPEG sont autorisées.");
         }
 
@@ -93,6 +93,15 @@ public class StorgeServiceImpl implements StorageService {
             // Handle image data not found scenario
             return null;
         }
+    }
+    @Override
+    public boolean deleteImageByIdCabin(Integer idCabin) {
+        Cabin cabin = cabinRepository.findByIdcabin(idCabin);
+        if (cabin == null) {
+            // Handle cabin not found scenario
+            return false;
+        }
+        return imageDataRepository.deleteByCabin(cabin);
     }
 
 }
