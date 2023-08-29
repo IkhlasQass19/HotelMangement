@@ -14,6 +14,14 @@ public class CabinResponse {
     private int capacite;
     private float price;
     private String descreption;
+    private String type;
+    private float surface;
+    private String basicFeatures;
+    private String bedroomFeatures;
+    private String livingRoomFeatures;
+    private String kitchenFeatures;
+    private String bathroomFeatures;
+    private String additionalFeatures;
     private byte[] imageFile;
     private List<ReservationResponse> reservations;
 }

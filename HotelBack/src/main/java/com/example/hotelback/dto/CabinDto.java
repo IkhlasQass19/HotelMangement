@@ -16,6 +16,14 @@ public class CabinDto implements Serializable {
     private int capacite;
     private float price;
     private String descreption;
+    private String type;
+    private float surface;
+    private String basicFeatures;
+    private String bedroomFeatures;
+    private String livingRoomFeatures;
+    private String kitchenFeatures;
+    private String bathroomFeatures;
+    private String additionalFeatures;
     @JsonIgnore
     private List<Reservation> reservations;
 }
