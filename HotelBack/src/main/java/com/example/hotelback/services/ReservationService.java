@@ -1,14 +1,15 @@
 package com.example.hotelback.services;
 
+import com.example.hotelback.Entities.Cabin;
 import com.example.hotelback.Entities.Etat;
 import com.example.hotelback.Entities.Reservation;
+import com.example.hotelback.Entities.User;
 import com.example.hotelback.repositories.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.concurrent.TimeUnit;
 
 @Service
@@ -56,7 +57,8 @@ public class ReservationService {
         List<Reservation> overlappingReservations = new ArrayList<>();
 // etat accept and refuse
         // We retrieve all reservations for the same cabin as the canceled reservation, except those with the status "refused"
-        List<Reservation> cabinReservations = reservationRepository.findByCabinAndStateNot(reservation.getCabin(), Etat.refused);
+        List<Reservation> cabinReservations = reservationRepository.findByCabinAndStateNot(reservation.getCabin(),
+                Etat.refused);
 
         // Check for overlapping reservations
         for (Reservation cabinReservation : cabinReservations) {
@@ -110,5 +112,171 @@ public class ReservationService {
         System.out.println(totalPrice);
         return totalPrice;
     }
+
+
+
+
+
+
+
+
+    //statistique
+
+
+    // Methode pour calculer le bénéfice/mois
+
+
+//    public Map<String, Float> calculateProfitPerMonth() {
+//        List<Reservation> allReservations = reservationRepository.findAll();
+//        Map<String, Float> profitPerMonth = new TreeMap<>();
+//
+//        SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM", new Locale("fr", "FR"));
+//
+//        for (Reservation reservation : allReservations) {
+//            String month = monthFormat.format(reservation.getDateDeb());
+//            profitPerMonth.put(month, profitPerMonth.getOrDefault(month, 0f) + reservation.getTotalPrice());
+//        }
+//
+//        return profitPerMonth;
+//    }
+
+
+
+    public Map<String, Float> calculateProfitPerMonth() {
+        List<Reservation> allReservations = reservationRepository.findAll();
+        Map<String, Float> profitPerMonth = new TreeMap<>();
+
+        SimpleDateFormat monthFormat = new SimpleDateFormat("MMMM", new Locale("fr", "FR"));
+
+        // Créer un ensemble de tous les mois de l'année
+        Set<String> allMonths = new HashSet<>();
+        allMonths.add("janvier");
+        allMonths.add("février");
+        allMonths.add("mars");
+        allMonths.add("avril");
+        allMonths.add("mai");
+        allMonths.add("juin");
+        allMonths.add("juillet");
+        allMonths.add("août");
+        allMonths.add("septembre");
+        allMonths.add("octobre");
+        allMonths.add("novembre");
+        allMonths.add("décembre");
+
+        // Initialiser les mois avec un bénéfice de zéro
+        for (String month : allMonths) {
+            profitPerMonth.put(month, 0f);
+        }
+
+        for (Reservation reservation : allReservations) {
+            String month = monthFormat.format(reservation.getDateDeb());
+            profitPerMonth.put(month, profitPerMonth.get(month) + reservation.getTotalPrice());
+        }
+
+        return profitPerMonth;
+    }
+
+
+
+
+
+
+
+
+
+
+
+    // Methode pour trouver la cabin la plus occuppée
+
+    public Cabin findMostBookedCabin() {
+        List<Reservation> allReservations = reservationRepository.findAll();
+        Map<Cabin, Integer> cabinBookingsCount = new HashMap<>();
+
+        for (Reservation reservation : allReservations) {
+            Cabin cabin = reservation.getCabin();
+            cabinBookingsCount.put(cabin, cabinBookingsCount.getOrDefault(cabin, 0) + 1);
+        }
+
+        return Collections.max(cabinBookingsCount.entrySet(), Map.Entry.comparingByValue()).getKey();
+    }
+
+
+
+//    public List<Map.Entry<Cabin, Float>> findMostBookedCabinsWithPercentage(int topCount) {
+//        List<Reservation> allReservations = reservationRepository.findAll();
+//        Map<Cabin, Integer> cabinBookingsCount = new HashMap<>();
+//
+//        for (Reservation reservation : allReservations) {
+//            Cabin cabin = reservation.getCabin();
+//            cabinBookingsCount.put(cabin, cabinBookingsCount.getOrDefault(cabin, 0) + 1);
+//        }
+//
+//        List<Map.Entry<Cabin, Integer>> sortedEntries = new ArrayList<>(cabinBookingsCount.entrySet());
+//        sortedEntries.sort(Map.Entry.<Cabin, Integer>comparingByValue().reversed());
+//
+//        int totalBookings = allReservations.size();
+//
+//        List<Map.Entry<Cabin, Float>> topCabinsWithPercentage = new ArrayList<>();
+//        for (int i = 0; i < Math.min(topCount, sortedEntries.size()); i++) {
+//            Map.Entry<Cabin, Integer> entry = sortedEntries.get(i);
+//            Cabin cabin = entry.getKey();
+//            int bookingsCount = entry.getValue();
+//            float percentage = (bookingsCount / (float) totalBookings) * 100;
+//
+//            topCabinsWithPercentage.add(Map.entry(cabin, percentage));
+//        }
+//
+//        return topCabinsWithPercentage;
+//    }
+
+
+    // Methode pour trouver uer qui réserve le plus
+
+    public User findMostActiveClient() {
+        List<Reservation> allReservations = reservationRepository.findAll();
+        Map<User, Integer> clientReservationsCount = new HashMap<>();
+
+        for (Reservation reservation : allReservations) {
+            User client = reservation.getClient();
+            clientReservationsCount.put(client, clientReservationsCount.getOrDefault(client, 0) + 1);
+        }
+
+        return Collections.max(clientReservationsCount.entrySet(), Map.Entry.comparingByValue()).getKey();
+    }
+
+
+
+//    public List<Map.Entry<User, Float>> findMostActiveClientsWithPercentage(int topCount) {
+//        List<Reservation> allReservations = reservationRepository.findAll();
+//        Map<User, Integer> clientReservationsCount = new HashMap<>();
+//
+//        for (Reservation reservation : allReservations) {
+//            User client = reservation.getClient();
+//            clientReservationsCount.put(client, clientReservationsCount.getOrDefault(client, 0) + 1);
+//        }
+//
+//        // Créer une liste triée des entrées de clientReservationsCount
+//        List<Map.Entry<User, Integer>> sortedEntries = new ArrayList<>(clientReservationsCount.entrySet());
+//        sortedEntries.sort(Map.Entry.<User, Integer>comparingByValue().reversed());
+//
+//        // Calculer le nombre total de réservations
+//        int totalReservations = allReservations.size();
+//
+//        // Calculer le pourcentage de réservations pour chaque utilisateur
+//        List<Map.Entry<User, Float>> topClientsWithPercentage = new ArrayList<>();
+//        for (int i = 0; i < Math.min(topCount, sortedEntries.size()); i++) {
+//            Map.Entry<User, Integer> entry = sortedEntries.get(i);
+//            User client = entry.getKey();
+//            int reservationsCount = entry.getValue();
+//            float percentage = (reservationsCount / (float) totalReservations) * 100;
+//
+//            topClientsWithPercentage.add(Map.entry(client, percentage));
+//        }
+//
+//        return topClientsWithPercentage;
+//    }
+
+
+
 
 }

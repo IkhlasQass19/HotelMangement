@@ -12,6 +12,7 @@ import com.example.hotelback.services.UserService;
 import com.example.hotelback.services.impl.UserServiceImpl;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
@@ -19,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 @RestController
@@ -79,7 +81,7 @@ public class ReservationController {
 
     @PostMapping("/add/{idCabin}/{idUser}")
     public ResponseEntity<Reservation> createReservationWithIds(
-            @PathVariable Long idCabin, @PathVariable Long idUser, @RequestBody Reservation reservation) {
+            @PathVariable long idCabin, @PathVariable Long idUser, @RequestBody Reservation reservation) {
         System.out.println(idUser);
         Cabin cabin = cabinService.getCabinById(idCabin);
         UserDto userDto = userService.getUserById(idUser);
@@ -239,6 +241,7 @@ public class ReservationController {
     }
 
     @GetMapping("/open/datesResvations/{idCabin}")
+    @PreAuthorize("hasAuthority('admin:read')")
     public ResponseEntity<List<OnlyDatesReservationResponse>> getDatesOfAcceptedReservations(@PathVariable int idCabin){
         List<Reservation> cabinReservations = reservationService.getReservationByIdCabin(idCabin);
         List<Reservation> acceptedReservations = cabinReservations.stream()
@@ -256,4 +259,59 @@ public class ReservationController {
         return ResponseEntity.ok(datesOfAcceptedReservations);
     }
 
+
+
+    //statistique
+
+    //Bénéfice par mois
+    @GetMapping("/statistics/profitPerMonth")
+    @PreAuthorize("hasAuthority('admin:read')")
+    public ResponseEntity<Map<String, Float>> getProfitPerMonthStatistics() {
+        Map<String, Float> profitPerMonth = reservationService.calculateProfitPerMonth();
+        return ResponseEntity.ok(profitPerMonth);
+    }
+
+
+//    //Cabine la plus occupée
+
+
+    @GetMapping("/statistics/mostBookedCabin")
+    @PreAuthorize("hasAuthority('admin:read')")
+    public ResponseEntity<Cabin> getMostBookedCabinStatistics() {
+        Cabin mostBookedCabin = reservationService.findMostBookedCabin();
+        return ResponseEntity.ok(mostBookedCabin);
+    }
+
+
+//    @GetMapping("/statistics/mostBookedCabins")
+//    @PreAuthorize("hasAuthority('admin:read')")
+//    public ResponseEntity<List<Map.Entry<Cabin, Float>>> getMostBookedCabinsStatistics() {
+//        List<Map.Entry<Cabin, Float>> topCabins = reservationService.findMostBookedCabinsWithPercentage(5);
+//        return new ResponseEntity<>(topCabins, HttpStatus.OK);
+//    }
+
+
+
+
+    //Client qui réserve le plus
+    @GetMapping("/statistics/mostActiveClient")
+    @PreAuthorize("hasAuthority('admin:read')")
+    public ResponseEntity<User> getMostActiveClientStatistics() {
+        User mostActiveClient = reservationService.findMostActiveClient();
+        return ResponseEntity.ok(mostActiveClient);
+    }
+
+
+
+
+//    @GetMapping("/statistics/mostActiveClients")
+//    @PreAuthorize("hasAuthority('admin:read')")
+//    public ResponseEntity<List<Map.Entry<User, Float>>> getMostActiveClientsStatistics() {
+//        List<Map.Entry<User, Float>> topClients = reservationService.findMostActiveClientsWithPercentage(5);
+//        return new ResponseEntity<>(topClients, HttpStatus.OK);
+//    }
 }
+
+
+
+
