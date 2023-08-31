@@ -59,7 +59,7 @@ public class CabinServiceImpl implements CabinService {
     }
 
     @Override
-    public CabinDto getCabinByIdCabin(Integer idCabin) {
+    public CabinDto getCabinByIdCabin(Long idCabin) {
         CabinDto cabinDto = new CabinDto();
         Cabin cabinEntity = cabinRepository.findByIdcabin(idCabin);
 
@@ -69,12 +69,12 @@ public class CabinServiceImpl implements CabinService {
     }
 
     @Override
-    public Cabin getCabinById(int idCabin) {
+    public Cabin getCabinById(Long idCabin) {
         return cabinRepository.findById(idCabin)
                 .orElseThrow(() -> new ResourceNotFoundException("Cabin not found with id: " + idCabin));
     }
     @Override
-    public void deleteCabin(Integer idCabin) {
+    public void deleteCabin(Long idCabin) {
         Cabin cabin = cabinRepository.findById(idCabin).orElse(null);
         cabinRepository.deleteById(cabin.getIdcabin());
 

@@ -33,7 +33,7 @@ public class StorgeServiceImpl implements StorageService {
     private static final String FOLDER_PATH = getFolderPath();
 
     @Override
-    public String uploadImageToFileSystem(Integer idcabin, MultipartFile file) throws IOException {
+    public String uploadImageToFileSystem(Long  idcabin, MultipartFile file) throws IOException {
 
         Cabin cabinEntity = cabinRepository.findByIdcabin(idcabin);
 
@@ -79,7 +79,7 @@ public class StorgeServiceImpl implements StorageService {
     }
 
     @Override
-    public String getImageByIdCabin(Integer idCabin) {
+    public String getImageByIdCabin(Long  idCabin) {
         Cabin cabin = cabinRepository.findByIdcabin(idCabin);
         if (cabin == null) {
             // Handle cabin not found scenario
@@ -95,7 +95,7 @@ public class StorgeServiceImpl implements StorageService {
         }
     }
     @Override
-    public boolean deleteImageByIdCabin(Integer idCabin) {
+    public boolean deleteImageByIdCabin(Long  idCabin) {
         Cabin cabin = cabinRepository.findByIdcabin(idCabin);
         if (cabin == null) {
             // Handle cabin not found scenario

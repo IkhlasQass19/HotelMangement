@@ -11,9 +11,10 @@ import java.util.List;
 @Getter
 @Setter
 public class CabinDto implements Serializable {
-    private Integer idcabin;
+    private Long idcabin;
     private String name;
     private int capacite;
+    private  int discount;
     private float price;
     private String descreption;
     private String type;

@@ -110,7 +110,7 @@ public class CabinController {
     }
 
     @GetMapping("/open/cabin/{idCabin}")
-    public ResponseEntity<CabinResponseWithoutResrvation> getCabinByIdCabin(@PathVariable Integer idCabin) throws IOException {
+    public ResponseEntity<CabinResponseWithoutResrvation> getCabinByIdCabin(@PathVariable Long idCabin) throws IOException {
         CabinDto cabinDto = cabinService.getCabinByIdCabin(idCabin);
         CabinResponseWithoutResrvation cabinResponse = new CabinResponseWithoutResrvation();
 
@@ -126,14 +126,14 @@ public class CabinController {
     }
     @DeleteMapping("/delete/{idCabin}")
     @PreAuthorize("hasAuthority('admin:delete')")
-    public ResponseEntity<Void> deleteCabin(@PathVariable Integer idCabin) {
+    public ResponseEntity<Void> deleteCabin(@PathVariable Long idCabin) {
         cabinService.deleteCabin(idCabin);
         return ResponseEntity.noContent().build();
     }
     @PutMapping("/update/{idCabin}")
     @PreAuthorize("hasAuthority('admin:update')")
     public ResponseEntity<CabinResponseWithoutResrvation> updateCabin(
-            @PathVariable Integer idCabin,
+            @PathVariable Long idCabin,
             @RequestBody CabinRequest cabinRequest
     ) throws IOException {
         CabinDto cabinDto = new CabinDto();

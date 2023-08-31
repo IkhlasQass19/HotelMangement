@@ -5,8 +5,8 @@ import org.springframework.web.multipart.MultipartFile;
 import java.io.IOException;
 
 public interface StorageService {
-    public String uploadImageToFileSystem(Integer idCabin, MultipartFile file) throws IOException;
+    public String uploadImageToFileSystem(Long  idCabin, MultipartFile file) throws IOException;
 
-    String getImageByIdCabin(Integer idCabin);
-    boolean deleteImageByIdCabin(Integer idCabin);
+    String getImageByIdCabin(Long idCabin);
+    boolean deleteImageByIdCabin(Long  idCabin);
 }

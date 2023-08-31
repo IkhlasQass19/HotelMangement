@@ -79,7 +79,7 @@ public class ReservationController {
 
     @PostMapping("/add/{idCabin}/{idUser}")
     public ResponseEntity<Reservation> createReservationWithIds(
-            @PathVariable int idCabin, @PathVariable Long idUser, @RequestBody Reservation reservation) {
+            @PathVariable Long idCabin, @PathVariable Long idUser, @RequestBody Reservation reservation) {
         System.out.println(idUser);
         Cabin cabin = cabinService.getCabinById(idCabin);
         UserDto userDto = userService.getUserById(idUser);

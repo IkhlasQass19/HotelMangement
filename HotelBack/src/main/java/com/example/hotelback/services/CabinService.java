@@ -13,13 +13,13 @@ public interface CabinService {
 
     Page<CabinDto> getAllCabins(Pageable pageable);
 
-    CabinDto getCabinByIdCabin(Integer idCabin);
+    CabinDto getCabinByIdCabin(Long idCabin);
 
-    Cabin getCabinById(int idCabin);
+    Cabin getCabinById(Long idCabin);
 
     List<CabinDto> getAllCabines();
 
-    void deleteCabin(Integer idCabin);
+    void deleteCabin(Long idCabin);
 
     Cabin updateCabin(CabinDto cabinDto);
 }
